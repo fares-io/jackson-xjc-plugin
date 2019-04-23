@@ -19,7 +19,7 @@ Example configuration for the JAXB2 commons compiler:
       <plugin>
         <groupId>io.fares.bind.xjc.plugins</groupId>
         <artifactId>jackson-xjc-plugin</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
       </plugin>
     </plugins>
     <extension>true</extension>
@@ -30,7 +30,7 @@ Example configuration for the JAXB2 commons compiler:
 </plugin>
 ```
 
-2. You are ready to receive Jackson goodness
+## Enum Annotations
 
 The plugin will now enhance the enum `VehicleType` with the Jackson annotations so that the values are serialised/deserialised as defined in the schema, NOT as dictated by Java convention.
 
@@ -64,6 +64,42 @@ public enum VehicleType {
             }
         }
         throw new IllegalArgumentException(v);
+    }
+
+}
+```
+
+## Fixed Value Attributes as Constants
+
+When enabling the `fixedAttributeAsConstantProperty` binding customization, the generated code becomes non-processable by Jackson. When a `xsd:attribute` is fixed, the plugin will generate a read-only getter method for the attribute so Jackson can serialise the object including this piece of data. 
+
+```xml
+<xsd:schema>
+  <xsd:annotation>
+    <xsd:appinfo>
+      <jaxb:globalBindings fixedAttributeAsConstantProperty="true"/>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:complexType name="SomeType">
+    <xsd:attribute name="fixedAttribute" type="xsd:string" fixed="fixed value"/>
+  </xsd:complexType>
+</xsd:schema>
+```
+
+will generate
+
+```java
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SomeType")
+public class SomeType {
+
+    @XmlAttribute(name = "fixedAttribute")
+    public final static String FIXED_ATTRIBUTE = "fixed value";
+
+    @XmlTransient
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public String getFixedAttribute() {
+        return FIXED_ATTRIBUTE;
     }
 
 }

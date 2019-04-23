@@ -23,6 +23,7 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.model.CClassInfo;
 import com.sun.tools.xjc.model.Model;
+import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.EnumOutline;
 import com.sun.tools.xjc.outline.Outline;
 import org.jvnet.jaxb2_commons.plugin.AbstractParameterizablePlugin;
@@ -38,6 +39,8 @@ public class JacksonPlugin extends AbstractParameterizablePlugin {
   public static final String NS = "http://jaxb2-commons.dev.java.net/basic/jackson";
 
   private EnumAnnotationProcessor enumAnnotationProcessor = new EnumAnnotationProcessor();
+
+  private FixedAttributeValueProcessor fixedAttributeValueProcessor = new FixedAttributeValueProcessor();
 
   @Override
   public String getOptionName() {
@@ -79,6 +82,10 @@ public class JacksonPlugin extends AbstractParameterizablePlugin {
 
     for (final EnumOutline enumOutline : outline.getEnums()) {
       enumAnnotationProcessor.process(model, enumOutline);
+    }
+
+    for (ClassOutline classOutline : outline.getClasses()) {
+      fixedAttributeValueProcessor.process(classOutline);
     }
 
     return true;
