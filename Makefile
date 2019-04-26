@@ -46,19 +46,19 @@ TIMESTAMP ?= $(shell date '+%Y%m%d%H%M%S')
 # ---- maven build and test --------------------------------------------------------------------------------------------
 
 .PHONY: clean
-clean: check-revision
+clean:
 	@mvn $(MAVEN_CLI_OPTS) clean
 
 .PHONY: test
-test: check-revision
+test:
 	@mvn $(MAVEN_CLI_OPTS) --update-snapshots clean test
 
 .PHONY: verify
-verify: check-revision
+verify:
 	@mvn $(MAVEN_CLI_OPTS) --update-snapshots clean verify -Dgpg.skip=true
 
 .PHONY: install
-install: check-revision
+install:
 	@mvn $(MAVEN_CLI_OPTS) --update-snapshots clean install -Prelease
 
 .PHONY: deps

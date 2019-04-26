@@ -17,19 +17,27 @@
 package io.fares.bind.xjc.plugins.jackson.validators;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.expr.SimpleName;
+import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.expr.FieldAccessExpr;
 
-public class FixedAttributeValueValidator extends TestValidator {
+import java.util.Optional;
+
+public class FixedElementValueValidator extends TestValidator {
 
   @Override
   public void visit(ClassOrInterfaceDeclaration n, Void arg) {
     super.visit(n, arg);
 
-    boolean match = n.getMethods().stream()
-      .map(MethodDeclaration::getName)
-      .map(SimpleName::getIdentifier)
-      .anyMatch("getFixedAttribute"::equals);
+    boolean match = n.getFieldByName("unit")
+      .filter(f -> f.getVariables().size() == 1)
+      .map(f -> f.getVariable(0))
+      .map(VariableDeclarator::getInitializer)
+      .flatMap(e -> e) // unpack
+      .filter(e -> e instanceof FieldAccessExpr)
+      .map(FieldAccessExpr.class::cast)
+      .map(Object::toString)
+      .filter("UnitOfMeasurement.UNIT"::equals)
+      .isPresent();
 
     if (match) foundIt();
 

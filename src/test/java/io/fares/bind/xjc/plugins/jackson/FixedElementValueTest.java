@@ -16,26 +16,36 @@
  */
 package io.fares.bind.xjc.plugins.jackson;
 
-import io.fares.bind.xjc.plugins.jackson.validators.EnumValueAnnotationValidator;
+import io.fares.bind.xjc.plugins.jackson.validators.FixedAttributeValueValidator;
+import io.fares.bind.xjc.plugins.jackson.validators.FixedElementValueValidator;
 import io.fares.bind.xjc.plugins.jackson.validators.TestValidator;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class EnumValueAnnotationTest extends AbstractJacksonPluginTest {
+public class FixedElementValueTest extends AbstractJacksonPluginTest {
 
   @Override
   public File getSchemaDirectory() {
-    return new File(getBaseDir(), "src/test/resources/schemas/EnumValue");
+    return new File(getBaseDir(), "src/test/resources/schemas/FixedElementValue");
   }
 
   @Override
   protected File getClassFile(File genDir) {
-    return new File(genDir, "testwithvalue/VehicleType.java");
+    return new File(genDir, "testfixedelement/Book.java");
   }
 
   @Override
   protected TestValidator getValidator() {
-    return new EnumValueAnnotationValidator();
+    return new FixedElementValueValidator();
+  }
+
+  @Override
+  public List<String> getArgs() {
+    final List<String> args = new ArrayList<>(super.getArgs());
+    args.add("-Xfixed-value");
+    return args;
   }
 
 }
