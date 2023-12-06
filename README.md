@@ -12,9 +12,10 @@ Example configuration for the JAXB2 commons compiler:
 
 ```xml
 <plugin>
-  <groupId>org.jvnet.jaxb2.maven2</groupId>
-  <artifactId>maven-jaxb2-plugin</artifactId>
+  <groupId>org.jvnet.jaxb</groupId>
+  <artifactId>jaxb-maven-plugin</artifactId>
   <configuration>
+    <extension>true</extension>
     <plugins>
       <plugin>
         <groupId>io.fares.bind.xjc.plugins</groupId>
@@ -22,7 +23,6 @@ Example configuration for the JAXB2 commons compiler:
         <version>0.0.3</version>
       </plugin>
     </plugins>
-    <extension>true</extension>
     <args>
       <arg>-Xjackson</arg>
     </args>
@@ -71,7 +71,7 @@ public enum VehicleType {
 
 ## Fixed Value Attributes as Constants
 
-When enabling the `fixedAttributeAsConstantProperty` binding customization, the generated code becomes non-processable by Jackson. When a `xsd:attribute` is fixed, the plugin will generate a read-only getter method for the attribute so Jackson can serialise the object including this piece of data. 
+When enabling the `fixedAttributeAsConstantProperty` binding customization, the generated code becomes non-processable by Jackson. When a `xsd:attribute` is fixed, the plugin will generate a read-only getter method for the attribute so Jackson can serialise the object including this piece of data.
 
 ```xml
 <xsd:schema>

@@ -18,18 +18,19 @@ package io.fares.bind.xjc.plugins.jackson;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.sun.tools.xjc.Options;
 import io.fares.bind.xjc.plugins.jackson.validators.TestValidator;
-import org.jvnet.jaxb2.maven2.AbstractXJC2Mojo;
-import org.jvnet.jaxb2.maven2.test.RunXJC2Mojo;
+import org.jvnet.jaxb.maven.AbstractXJC2Mojo;
+import org.jvnet.jaxb.maven.test.RunXJC2Mojo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractJacksonPluginTest extends RunXJC2Mojo {
+abstract class AbstractJacksonPluginTest extends RunXJC2Mojo {
 
-  AbstractXJC2Mojo mojoUnderTest;
+  AbstractXJC2Mojo<Options> mojoUnderTest;
 
   @Override
   public void testExecute() throws Exception {
@@ -60,7 +61,7 @@ public abstract class AbstractJacksonPluginTest extends RunXJC2Mojo {
   }
 
   @Override
-  protected void configureMojo(AbstractXJC2Mojo mojo) {
+  protected void configureMojo(AbstractXJC2Mojo<Options> mojo) {
     super.configureMojo(mojo);
     mojo.setForceRegenerate(true);
     mojo.setDebug(false);

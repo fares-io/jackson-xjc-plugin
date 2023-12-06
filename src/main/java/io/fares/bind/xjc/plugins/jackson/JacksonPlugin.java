@@ -31,11 +31,17 @@ import java.util.List;
 
 public class JacksonPlugin extends AbstractParameterizablePlugin {
 
-  public static final String NS = "http://jaxb2-commons.dev.java.net/basic/jackson";
+  // TODO rename plugin namespace
+  public static final String NS = "http" + "://jaxb2-commons.dev.java.net/basic/jackson";
 
-  private EnumAnnotationProcessor enumAnnotationProcessor = new EnumAnnotationProcessor();
+  private final EnumAnnotationProcessor enumAnnotationProcessor;
 
-  private FixedAttributeValueProcessor fixedAttributeValueProcessor = new FixedAttributeValueProcessor();
+  private final FixedAttributeValueProcessor fixedAttributeValueProcessor;
+
+  public JacksonPlugin() {
+    this.enumAnnotationProcessor = new EnumAnnotationProcessor();
+    this.fixedAttributeValueProcessor = new FixedAttributeValueProcessor();
+  }
 
   @Override
   public String getOptionName() {

@@ -6,7 +6,7 @@
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
   ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~     https://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,7 @@
   ~
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.fares.bind.xjc.plugins</groupId>
   <artifactId>jackson-xjc-plugin</artifactId>
@@ -24,12 +24,12 @@
   <name>Jackson XJC Plugin</name>
   <description>A XJC plugin to automate application of Jackson annotations.</description>
 
-  <url>https://github.com/bertramn/jackson-xjc-plugin</url>
+  <url>https://github.com/fares-io/jackson-xjc-plugin</url>
 
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -40,46 +40,42 @@
       <email>niels.bertram@fares.io</email>
       <url>https://plus.google.com/+NielsBertram</url>
       <organization>fares.io</organization>
-      <organizationUrl>http://fares.io/</organizationUrl>
+      <organizationUrl>https://fares.io/</organizationUrl>
     </developer>
   </developers>
 
   <issueManagement>
-    <url>https://github.com/bertramn/jackson-xjc-plugin/issues</url>
+    <url>https://github.com/fares-io/jackson-xjc-plugin/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
 
   <scm>
-    <connection>scm:git:https://github.com/bertramn/jackson-xjc-plugin.git</connection>
-    <developerConnection>scm:git:https://github.com/bertramn/jackson-xjc-plugin.git</developerConnection>
-    <url>https://github.com/bertramn/jackson-xjc-plugin.git</url>
+    <connection>scm:git:https://github.com/fares-io/jackson-xjc-plugin.git</connection>
+    <developerConnection>scm:git:https://github.com/fares-io/jackson-xjc-plugin.git</developerConnection>
+    <url>https://github.com/fares-io/jackson-xjc-plugin.git</url>
     <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
     </snapshotRepository>
     <repository>
       <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.surefire.version>3.0.0-M3</maven.surefire.version>
-    <maven.flatten.version>1.1.0</maven.flatten.version>
-
-    <jaxb.version>2.3.2</jaxb.version>
-    <jaxb.plugin.version>0.14.0</jaxb.plugin.version>
-    <jaxb.basics.version>0.12.0</jaxb.basics.version>
-    <jackson.version>2.9.8</jackson.version>
-    <slf4j.version>1.7.26</slf4j.version>
-    <logback.version>1.2.3</logback.version>
-    <junit.version>4.12</junit.version>
+    <jackson.version>2.15.3</jackson.version>
+    <jaxb.version>2.3.9</jaxb.version>
+    <jaxb.plugin.version>2.0.9</jaxb.plugin.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <logback.version>1.2.13</logback.version>
+    <junit.version>5.10.1</junit.version>
   </properties>
 
   <dependencies>
@@ -88,7 +84,7 @@
       <artifactId>jackson-annotations</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jvnet.jaxb2_commons</groupId>
+      <groupId>org.jvnet.jaxb</groupId>
       <artifactId>jaxb2-basics-tools</artifactId>
     </dependency>
     <!-- region xjc -->
@@ -120,8 +116,18 @@
     <!-- endregion -->
     <!-- region testing -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -130,30 +136,20 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jvnet.jaxb2.maven2</groupId>
-      <artifactId>maven-jaxb2-plugin-testing</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
+      <groupId>org.jvnet.jaxb</groupId>
+      <artifactId>jaxb-maven-plugin-testing</artifactId>
       <scope>test</scope>
     </dependency>
     <!-- endregion -->
     <!-- region interop testing-->
     <dependency>
-      <groupId>org.jvnet.jaxb2_commons</groupId>
+      <groupId>org.jvnet.jaxb</groupId>
       <artifactId>jaxb2-basics</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jvnet.jaxb2_commons</groupId>
-      <artifactId>jaxb2-basics-annotate</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jvnet.jaxb2_commons</groupId>
-      <artifactId>jaxb2-namespace-prefix</artifactId>
+      <groupId>org.jvnet.jaxb</groupId>
+      <artifactId>jaxb-basics-annotate</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -167,32 +163,26 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-bom</artifactId>
+        <version>${jaxb.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
         <version>${jackson.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>jakarta.xml.bind</groupId>
-        <artifactId>jakarta.xml.bind-api</artifactId>
-        <version>${jaxb.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-xjc</artifactId>
-        <version>${jaxb.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>codemodel</artifactId>
-        <version>${jaxb.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jvnet.jaxb2_commons</groupId>
+        <groupId>org.jvnet.jaxb</groupId>
         <artifactId>jaxb2-basics-tools</artifactId>
-        <version>${jaxb.basics.version}</version>
+        <version>${jaxb.plugin.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <groupId>org.jvnet.jaxb</groupId>
         <artifactId>maven-jaxb2-plugin-core</artifactId>
         <version>${jaxb.plugin.version}</version>
         <exclusions>
@@ -203,8 +193,8 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
-        <artifactId>maven-jaxb23-plugin</artifactId>
+        <groupId>org.jvnet.jaxb.maven</groupId>
+        <artifactId>jaxb-maven-plugin</artifactId>
         <version>${jaxb.plugin.version}</version>
         <exclusions>
           <exclusion>
@@ -218,22 +208,21 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
-        <artifactId>maven-jaxb2-plugin-testing</artifactId>
+        <groupId>org.jvnet.jaxb</groupId>
+        <artifactId>jaxb-maven-plugin-testing</artifactId>
         <version>${jaxb.plugin.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <!-- region logging dependencies -->
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>${slf4j.version}</version>
-      </dependency>
-      <!-- exclude commons-logging and replace with slf4j (https://www.slf4j.org/faq.html#excludingJCL) -->
-      <dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>99-empty</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -258,51 +247,49 @@
       <!-- endregion -->
       <!-- region testing dependencies -->
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.github.javaparser</groupId>
         <artifactId>javaparser-core</artifactId>
-        <version>3.13.9</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-artifact</artifactId>
-        <version>2.2.1</version>
+        <version>3.25.5</version>
       </dependency>
       <dependency>
         <groupId>javax.money</groupId>
         <artifactId>money-api</artifactId>
-        <version>1.0.3</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
         <groupId>org.javamoney.moneta</groupId>
         <artifactId>moneta-core</artifactId>
-        <version>1.3</version>
+        <version>1.4.2</version>
       </dependency>
       <!-- endregion -->
       <!-- region interop testing -->
       <dependency>
-        <groupId>org.jvnet.jaxb2_commons</groupId>
+        <groupId>org.jvnet.jaxb</groupId>
         <artifactId>jaxb2-basics</artifactId>
-        <version>${jaxb.basics.version}</version>
+        <version>${jaxb.plugin.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.jvnet.jaxb2_commons</groupId>
-        <artifactId>jaxb2-basics-annotate</artifactId>
-        <version>1.1.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jvnet.jaxb2_commons</groupId>
-        <artifactId>jaxb2-namespace-prefix</artifactId>
-        <version>1.1</version>
+        <groupId>org.jvnet.jaxb</groupId>
+        <artifactId>jaxb-basics-annotate</artifactId>
+        <version>${jaxb.plugin.version}</version>
       </dependency>
       <dependency>
         <groupId>com.github.fbdo</groupId>
         <artifactId>jaxb2-fixed-value</artifactId>
         <version>1.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <!-- endregion -->
     </dependencies>
@@ -328,32 +315,28 @@
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>1.6.8</version>
+          <version>1.6.13</version>
           <extensions>true</extensions>
           <configuration>
             <serverId>ossrh</serverId>
-            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
             <autoReleaseAfterClose>true</autoReleaseAfterClose>
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.11.0</version>
           <configuration>
             <source>8</source>
             <target>8</target>
-            <!-- compiler debug -->
-            <debug>true</debug>
-            <debuglevel>lines,vars,source</debuglevel>
-            <optimize>true</optimize>
           </configuration>
         </plugin>
         <!-- ensure javadocs are attached -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.6.0</version>
           <executions>
             <execution>
               <id>attach-javadocs</id>
@@ -367,7 +350,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.0.1</version>
+          <version>3.3.0</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -381,11 +364,11 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.1.1</version>
+          <version>3.3.0</version>
           <configuration>
             <archive>
               <manifestEntries>
-                <Built-By>fasttrack</Built-By>
+                <Built-By>fares.io</Built-By>
               </manifestEntries>
             </archive>
           </configuration>
@@ -394,16 +377,19 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.3.1</version>
         </plugin>
         <!-- module used for maven ci friendly builds, see blueprints -->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>flatten-maven-plugin</artifactId>
-          <version>1.1.0</version>
+          <version>1.5.0</version>
           <configuration>
             <updatePomFile>true</updatePomFile>
             <flattenMode>ossrh</flattenMode>
+            <pomElements>
+              <build>remove</build>
+            </pomElements>
           </configuration>
           <executions>
             <execution>
@@ -426,13 +412,13 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.1.1</version>
+          <version>3.6.0</version>
         </plugin>
         <!-- override old default resources -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.3.1</version>
           <configuration>
             <encoding>UTF-8</encoding>
           </configuration>
@@ -441,7 +427,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
+          <version>3.1.0</version>
           <executions>
             <execution>
               <id>sign-artifacts</id>
@@ -456,7 +442,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>1.4.1</version>
+          <version>3.4.1</version>
           <executions>
             <execution>
               <id>enforce-versions</id>
@@ -466,10 +452,10 @@
               <configuration>
                 <rules>
                   <requireMavenVersion>
-                    <version>3.1.0</version>
+                    <version>3.8.0</version>
                   </requireMavenVersion>
                   <requireJavaVersion>
-                    <version>1.7</version>
+                    <version>1.8</version>
                   </requireJavaVersion>
                 </rules>
               </configuration>
@@ -480,7 +466,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven.surefire.version}</version>
+          <version>3.1.2</version>
           <configuration>
             <excludes>
               <exclude>**/*IntegrationTest.java</exclude>
@@ -491,7 +477,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${maven.surefire.version}</version>
+          <version>3.1.2</version>
           <configuration>
             <includes>
               <include>**/*IntegrationTest.java</include>
@@ -510,18 +496,18 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-report-plugin</artifactId>
-          <version>${maven.surefire.version}</version>
+          <version>3.1.2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.4.5</version>
         </plugin>
         <!-- activate release with java docs and code signing -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
-          <version>2.5.3</version>
+          <version>3.0.1</version>
           <configuration>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <useReleaseProfile>false</useReleaseProfile>
