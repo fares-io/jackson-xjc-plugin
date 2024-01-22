@@ -71,11 +71,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <jackson.version>2.15.3</jackson.version>
-    <jaxb.version>2.3.9</jaxb.version>
-    <jaxb.plugin.version>2.0.9</jaxb.plugin.version>
+    <jaxb.version>4.0.4</jaxb.version>
+    <jaxb.plugin.version>4.0.0</jaxb.plugin.version>
     <slf4j.version>1.7.36</slf4j.version>
     <logback.version>1.2.13</logback.version>
     <junit.version>5.10.1</junit.version>
+    <fv.plugin.version>1.0.2</fv.plugin.version>
   </properties>
 
   <dependencies>
@@ -85,25 +86,13 @@
     </dependency>
     <dependency>
       <groupId>org.jvnet.jaxb</groupId>
-      <artifactId>jaxb2-basics-tools</artifactId>
-    </dependency>
-    <!-- region xjc -->
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-      <scope>provided</scope>
+      <artifactId>jaxb-plugins-tools</artifactId>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-xjc</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>codemodel</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <!-- endregion -->
     <!-- region logging dependencies -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -144,17 +133,17 @@
     <!-- region interop testing-->
     <dependency>
       <groupId>org.jvnet.jaxb</groupId>
-      <artifactId>jaxb2-basics</artifactId>
+      <artifactId>jaxb-plugins</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jvnet.jaxb</groupId>
-      <artifactId>jaxb-basics-annotate</artifactId>
+      <artifactId>jaxb-annox</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.fbdo</groupId>
-      <artifactId>jaxb2-fixed-value</artifactId>
+      <groupId>io.fares.bind.xjc.plugins</groupId>
+      <artifactId>fixed-value-xjc-plugin</artifactId>
       <scope>test</scope>
     </dependency>
     <!-- endregion -->
@@ -178,34 +167,8 @@
       </dependency>
       <dependency>
         <groupId>org.jvnet.jaxb</groupId>
-        <artifactId>jaxb2-basics-tools</artifactId>
+        <artifactId>jaxb-plugins-tools</artifactId>
         <version>${jaxb.plugin.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jvnet.jaxb</groupId>
-        <artifactId>maven-jaxb2-plugin-core</artifactId>
-        <version>${jaxb.plugin.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>txw2</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jvnet.jaxb.maven</groupId>
-        <artifactId>jaxb-maven-plugin</artifactId>
-        <version>${jaxb.plugin.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-xjc-jdk9</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.jvnet.jaxb</groupId>
@@ -272,24 +235,18 @@
       <!-- region interop testing -->
       <dependency>
         <groupId>org.jvnet.jaxb</groupId>
-        <artifactId>jaxb2-basics</artifactId>
+        <artifactId>jaxb-plugins</artifactId>
         <version>${jaxb.plugin.version}</version>
       </dependency>
       <dependency>
         <groupId>org.jvnet.jaxb</groupId>
-        <artifactId>jaxb-basics-annotate</artifactId>
+        <artifactId>jaxb-annox</artifactId>
         <version>${jaxb.plugin.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.github.fbdo</groupId>
-        <artifactId>jaxb2-fixed-value</artifactId>
-        <version>1.2</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-xjc</artifactId>
-          </exclusion>
-        </exclusions>
+        <groupId>io.fares.bind.xjc.plugins</groupId>
+        <artifactId>fixed-value-xjc-plugin</artifactId>
+        <version>${fv.plugin.version}</version>
       </dependency>
       <!-- endregion -->
     </dependencies>
@@ -328,8 +285,9 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.11.0</version>
           <configuration>
-            <source>8</source>
-            <target>8</target>
+            <source>11</source>
+            <target>11</target>
+            <release>11</release>
           </configuration>
         </plugin>
         <!-- ensure javadocs are attached -->
@@ -455,12 +413,33 @@
                     <version>3.8.0</version>
                   </requireMavenVersion>
                   <requireJavaVersion>
-                    <version>1.8</version>
+                    <version>11</version>
                   </requireJavaVersion>
                 </rules>
               </configuration>
             </execution>
+            <execution>
+              <id>enforce-bytecode-version</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <enforceBytecodeVersion>
+                    <maxJdkVersion>11</maxJdkVersion>
+                  </enforceBytecodeVersion>
+                </rules>
+                <fail>true</fail>
+              </configuration>
+            </execution>
           </executions>
+          <dependencies>
+            <dependency>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>extra-enforcer-rules</artifactId>
+              <version>1.7.0</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <!-- surefire testing by default will exclude integration testing -->
         <plugin>

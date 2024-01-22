@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,7 @@ import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.EnumOutline;
 import com.sun.tools.xjc.outline.Outline;
-import org.jvnet.jaxb2_commons.plugin.AbstractParameterizablePlugin;
+import org.jvnet.jaxb.plugin.AbstractParameterizablePlugin;
 import org.xml.sax.ErrorHandler;
 
 import javax.xml.namespace.QName;
@@ -32,7 +32,7 @@ import java.util.List;
 public class JacksonPlugin extends AbstractParameterizablePlugin {
 
   // TODO rename plugin namespace
-  public static final String NS = "http" + "://jaxb2-commons.dev.java.net/basic/jackson";
+  public static final String NS = "urn:jaxb.fares.io:jackson";
 
   private final EnumAnnotationProcessor enumAnnotationProcessor;
 

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,17 +20,17 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.sun.tools.xjc.Options;
 import io.fares.bind.xjc.plugins.jackson.validators.TestValidator;
-import org.jvnet.jaxb.maven.AbstractXJC2Mojo;
-import org.jvnet.jaxb.maven.test.RunXJC2Mojo;
+import org.jvnet.jaxb.maven.AbstractXJCMojo;
+import org.jvnet.jaxb.maven.test.RunXJCMojo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class AbstractJacksonPluginTest extends RunXJC2Mojo {
+abstract class AbstractJacksonPluginTest extends RunXJCMojo {
 
-  AbstractXJC2Mojo<Options> mojoUnderTest;
+  AbstractXJCMojo<Options> mojoUnderTest;
 
   @Override
   public void testExecute() throws Exception {
@@ -61,7 +61,7 @@ abstract class AbstractJacksonPluginTest extends RunXJC2Mojo {
   }
 
   @Override
-  protected void configureMojo(AbstractXJC2Mojo<Options> mojo) {
+  protected void configureMojo(AbstractXJCMojo<Options> mojo) {
     super.configureMojo(mojo);
     mojo.setForceRegenerate(true);
     mojo.setDebug(false);
